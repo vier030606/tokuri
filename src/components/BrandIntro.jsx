@@ -1,99 +1,131 @@
 import { motion } from 'framer-motion';
-import { Heart, Gem, Wallet } from 'lucide-react';
+import { Heart, Sparkles, Gem, Wallet, UtensilsCrossed, CheckCircle2 } from 'lucide-react';
 import { fadeUp, staggerContainer, viewportConfig } from '../utils/animations';
 
 const values = [
   {
     number: '01',
-    title: 'Homemade',
-    description: 'Dibuat dengan perhatian di setiap adonan.',
+    tag: 'Keaslian Rasa',
+    title: 'Homemade with Love',
+    subtitle: 'Dibuat dengan sentuhan tangan dan perhatian di setiap adonan.',
+    desc: 'Kami memanggang dalam jumlah terkontrol (small batches) untuk menjaga kualitas tekstur, kelembutan mentega, dan kesegaran rasa.',
     icon: Heart,
+    accent: 'bg-cream-dark',
   },
   {
     number: '02',
-    title: 'Premium Quality',
-    description: 'Bahan pilihan untuk rasa yang lebih istimewa.',
+    tag: 'Bahan Pilihan',
+    title: 'Premium Ingredients',
+    subtitle: 'Bahan-bahan bermutu tinggi untuk cita rasa istimewa.',
+    desc: 'Menggunakan perpaduan butter premium, keju tua pilihan, dan cokelat murni tanpa bahan pengawet sintesis yang merusak rasa.',
     icon: Gem,
+    accent: 'bg-beige/50',
   },
   {
     number: '03',
-    title: 'Affordable',
-    description: 'Kualitas berkelas dengan harga bersahabat.',
+    tag: 'Tanpa Beban',
+    title: 'Affordable Luxury',
+    subtitle: 'Kualitas berkelas yang bersahabat untuk semua kantong.',
+    desc: 'Kelezatan kue kering premium yang layak dinikmati setiap saat tanpa harus menunggu momen khusus atau merogoh kocek dalam.',
     icon: Wallet,
+    accent: 'bg-cream-dark',
   },
 ];
 
 const BrandIntro = () => {
   return (
-    <section id="tentang" className="section-padding section-spacing grain-overlay">
+    <section id="tentang" className="section-padding section-spacing bg-cream/40 grain-overlay">
       <div className="container-narrow">
-        {/* Heading */}
+        {/* Section Header */}
         <motion.div
-          className="max-w-2xl mx-auto text-center mb-16 md:mb-24"
+          className="max-w-3xl mx-auto text-center mb-16 md:mb-20"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
         >
-          <motion.div variants={fadeUp} className="mb-5">
-            <div className="w-12 h-px bg-beige mx-auto mb-6" />
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-4">
+            <span className="w-8 h-px bg-beige-dark" />
+            <span className="eyebrow">Nilai & Filosofi Tokuri</span>
+            <span className="w-8 h-px bg-beige-dark" />
           </motion.div>
+
           <motion.h2
             variants={fadeUp}
             className="font-serif text-heading font-semibold text-brown mb-6 text-balance"
           >
-            Dibuat dari Rumah,
-            <br />
-            Dihadirkan untuk Semua.
+            Dibuat dari Rumah,{' '}
+            <span className="font-serif italic font-normal text-cinnamon">
+              Dihadirkan
+            </span>{' '}
+            untuk Semua.
           </motion.h2>
+
           <motion.p
             variants={fadeUp}
-            className="font-sans text-base sm:text-lg text-brown-light/70 leading-relaxed max-w-xl mx-auto"
+            className="font-sans text-base sm:text-lg text-brown-muted leading-relaxed max-w-2xl mx-auto"
           >
-            Tokuri hadir sebagai toko kue kering yang menggabungkan cita rasa rumahan
-            dengan tampilan dan kualitas yang berkelas. Kami percaya kue yang istimewa
-            tidak harus selalu mahal.
+            Tokuri hadir sebagai toko kue kering yang menyatukan kehangatan resep keluarga dengan
+            standar cita rasa modern. Kami percaya kue yang istimewa lahir dari ketulusan, bukan sekadar kemasan mahal.
           </motion.p>
         </motion.div>
 
-        {/* Values Grid */}
+        {/* 3 Values Cards with Tactile Craft Paper Aesthetic */}
         <motion.div
-          className="grid md:grid-cols-3 gap-8 md:gap-6 lg:gap-12"
+          className="grid md:grid-cols-3 gap-8 lg:gap-10"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
         >
-          {values.map((value) => {
-            const IconComponent = value.icon;
+          {values.map((v) => {
+            const IconComponent = v.icon;
             return (
               <motion.div
-                key={value.number}
+                key={v.number}
                 variants={fadeUp}
-                className="relative text-center md:text-left group"
+                className="paper-card relative group flex flex-col justify-between"
+                whileHover={{ y: -6 }}
               >
-                {/* Number */}
-                <span className="font-serif text-5xl sm:text-6xl font-light text-beige/60 leading-none block mb-3">
-                  {value.number}
-                </span>
+                {/* Washi tape on card */}
+                <div className="washi-tape -top-3 left-8 w-16 h-5 rotate-[-2deg]" />
 
-                {/* Icon */}
-                <div className="w-10 h-10 rounded-full bg-cream-dark flex items-center justify-center mb-4 mx-auto md:mx-0 group-hover:bg-beige transition-colors duration-500">
-                  <IconComponent size={18} className="text-brown-light" strokeWidth={1.5} />
+                <div>
+                  {/* Top Badge & Number */}
+                  <div className="flex items-center justify-between mb-6 pb-4 border-b border-beige/60">
+                    <span className="font-sans text-[11px] font-semibold tracking-wider text-brown-muted uppercase bg-cream px-3 py-1 rounded-full border border-beige/40">
+                      {v.tag}
+                    </span>
+                    <span className="font-serif text-3xl font-light text-beige-dark/60">
+                      {v.number}
+                    </span>
+                  </div>
+
+                  {/* Icon */}
+                  <div className="w-12 h-12 rounded-2xl bg-cream-dark flex items-center justify-center mb-5 text-brown group-hover:bg-brown group-hover:text-ivory transition-colors duration-300 shadow-soft">
+                    <IconComponent size={22} strokeWidth={1.75} />
+                  </div>
+
+                  {/* Title & Subtitle */}
+                  <h3 className="font-serif text-2xl font-bold text-brown mb-2">
+                    {v.title}
+                  </h3>
+                  <p className="font-serif italic text-sm text-cinnamon mb-3">
+                    &ldquo;{v.subtitle}&rdquo;
+                  </p>
+
+                  {/* Description */}
+                  <p className="font-sans text-sm text-brown-muted leading-relaxed">
+                    {v.desc}
+                  </p>
                 </div>
 
-                {/* Title */}
-                <h3 className="font-serif text-xl sm:text-2xl font-semibold text-brown mb-2">
-                  {value.title}
-                </h3>
-
-                {/* Description */}
-                <p className="font-sans text-sm text-brown-light/70 leading-relaxed max-w-xs mx-auto md:mx-0">
-                  {value.description}
-                </p>
-
-                {/* Decorative line */}
-                <div className="hidden md:block absolute -right-3 lg:-right-6 top-8 bottom-8 w-px bg-beige/40 last:hidden" />
+                <div className="mt-8 pt-4 border-t border-beige/40 flex items-center gap-2">
+                  <CheckCircle2 size={14} className="text-sage" />
+                  <span className="font-sans text-xs text-brown-muted">
+                    Standar Mutu Tokuri
+                  </span>
+                </div>
               </motion.div>
             );
           })}

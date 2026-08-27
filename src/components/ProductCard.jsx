@@ -1,96 +1,122 @@
 import { motion } from 'framer-motion';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Sparkles, MessageCircle, Info } from 'lucide-react';
 import { contact } from '../data/products';
 
-const cardFade = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' },
-  },
-};
+const ProductCard = ({ product, index = 0, onOpenDetail }) => {
+  const getOrderUrl = (name) => {
+    const text = encodeURIComponent(
+      `Halo Tokuri, saya ingin memesan kue kering "${name}". Boleh info ketersediaan dan pengirimannya?`
+    );
+    return `https://wa.me/6281234567890?text=${text}`;
+  };
 
-const ProductCard = ({ product, index }) => {
-  // Alternate layout styles for editorial feel
-  const isLarge = index === 0 || index === 3;
-  const rotation = index % 2 === 0 ? 'rotate-[0.5deg]' : '-rotate-[0.5deg]';
+  // Subtle natural angle for organic craft feel
+  const rotations = ['rotate-[-0.6deg]', 'rotate-[0.5deg]', 'rotate-[-0.4deg]', 'rotate-[0.6deg]'];
+  const cardRotation = rotations[index % rotations.length];
 
   return (
     <motion.article
-      variants={cardFade}
-      className={`group relative ${isLarge ? 'md:col-span-2' : ''}`}
+      className={`group relative bg-ivory rounded-3xl overflow-hidden border border-brown/10 ring-1 ring-brown/5 shadow-card hover:shadow-card-hover transition-all duration-500 flex flex-col justify-between ${cardRotation} hover:rotate-0`}
       whileHover={{ y: -8 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className={`relative bg-ivory rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-500 ${rotation}`}>
-        {/* Image */}
-        <div className={`relative overflow-hidden ${isLarge ? 'aspect-[16/10]' : 'aspect-[4/5]'}`}>
-          <motion.img
-            src={product.image}
-            alt={`${product.name} — ${product.description}`}
-            className="w-full h-full object-cover"
-            whileHover={{ scale: 1.04 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            onError={(e) => {
-              e.target.style.display = 'none';
-              e.target.parentElement.innerHTML = `
-                <div class="w-full h-full flex flex-col items-center justify-center bg-cream-dark p-6">
-                  <svg class="w-12 h-12 text-brown-light/20 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="2"/>
-                    <circle cx="8.5" cy="8.5" r="1.5"/>
-                    <path d="M21 15l-5-5L5 21"/>
-                  </svg>
-                  <span class="font-serif text-brown-light/40 text-base italic">${product.name}</span>
-                  <span class="font-sans text-brown-light/25 text-xs mt-1">${product.image.split('/').pop()}</span>
-                </div>
-              `;
-            }}
-          />
+      {/* Decorative Washi Tape */}
+      <div className="washi-tape -top-2.5 left-1/2 -translate-x-1/2 w-16 h-5 z-20" />
 
-          {/* Category tag */}
-          <div className="absolute top-4 left-4 z-10">
-            <span className="inline-block bg-ivory/90 backdrop-blur-sm text-brown font-sans text-[10px] font-medium tracking-[0.15em] uppercase px-3 py-1.5 rounded-full">
-              {product.category}
-            </span>
-          </div>
+      {/* Image Container with Inner Vignette & Badges */}
+      <div className="relative aspect-[4/3] overflow-hidden bg-cream-dark">
+        <motion.img
+          src={product.image}
+          alt={`${product.name} — ${product.description}`}
+          className="w-full h-full object-cover"
+          whileHover={{ scale: 1.06 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          loading="lazy"
+        />
+
+        {/* Category Badge */}
+        <div className="absolute top-4 left-4 z-10">
+          <span className="inline-block bg-ivory/95 backdrop-blur-sm text-brown font-sans text-[10px] font-bold tracking-wider uppercase px-3 py-1.5 rounded-full shadow-soft border border-brown/10">
+            {product.category}
+          </span>
         </div>
 
-        {/* Content */}
-        <div className="p-5 sm:p-6">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex-1">
-              <h3 className="font-serif text-xl sm:text-2xl font-semibold text-brown mb-1.5">
-                {product.name}
-              </h3>
-              <p className="font-sans text-sm text-brown-light/65 leading-relaxed">
-                {product.description}
-              </p>
+        {product.badge && (
+          <div className="absolute top-4 right-4 z-10">
+            <span className="inline-flex items-center gap-1 bg-brown text-ivory font-sans text-[10px] font-medium tracking-wide px-2.5 py-1 rounded-full shadow-soft">
+              <Sparkles size={11} className="text-caramel" />
+              {product.badge}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Card Content Body */}
+      <div className="p-6 flex-1 flex flex-col justify-between">
+        <div>
+          {product.tagline && (
+            <span className="font-serif italic text-xs text-cinnamon block mb-1">
+              &ldquo;{product.tagline}&rdquo;
+            </span>
+          )}
+
+          <h3 className="font-serif text-2xl font-bold text-brown mb-2 group-hover:text-cinnamon transition-colors">
+            {product.name}
+          </h3>
+
+          <p className="font-sans text-sm text-brown-muted leading-relaxed mb-4 line-clamp-2">
+            {product.description}
+          </p>
+
+          {/* Taste Tag Pills */}
+          {product.tasteTags && (
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {product.tasteTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="font-sans text-[10px] text-brown-warm bg-cream px-2.5 py-0.5 rounded-full border border-beige/60"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
+          )}
 
-            {product.price && (
-              <span className="font-sans text-sm font-semibold text-brown whitespace-nowrap mt-1">
-                {product.price}
+          {/* Weight & Packaging details */}
+          {product.weight && (
+            <div className="mb-4">
+              <span className="inline-flex items-center gap-1.5 font-sans text-[11px] font-medium text-brown-warm bg-cream-dark/60 px-3 py-1 rounded-lg border border-beige/40">
+                📦 Toples {product.weight}
               </span>
-            )}
-          </div>
+            </div>
+          )}
+        </div>
 
-          {/* CTA */}
-          <div className="mt-4 flex items-center justify-between">
-            <a
-              href={contact.whatsapp.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-sans text-xs font-medium tracking-wide text-brown
-                         bg-cream-dark hover:bg-beige px-4 py-2 rounded-full transition-colors duration-300"
+        {/* Action Button */}
+        <div className="pt-4 border-t border-beige/60 flex items-center justify-between gap-2">
+          {onOpenDetail ? (
+            <button
+              onClick={() => onOpenDetail(product)}
+              className="inline-flex items-center gap-1 font-sans text-xs font-semibold text-brown-warm hover:text-brown transition-colors"
             >
-              <ShoppingBag size={13} />
-              Pesan
-            </a>
+              <Info size={14} />
+              Detail Resep
+            </button>
+          ) : (
+            <span className="font-sans text-xs text-brown-muted font-medium">
+              Butter Wijsman
+            </span>
+          )}
 
-            {/* Decorative dot */}
-            <div className="w-1.5 h-1.5 rounded-full bg-beige" />
-          </div>
+          <a
+            href={getOrderUrl(product.name)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold tracking-wide text-ivory bg-brown hover:bg-brown-dark px-4 py-2.5 rounded-full shadow-soft transition-all duration-300"
+          >
+            <MessageCircle size={14} />
+            Pesan
+          </a>
         </div>
       </div>
     </motion.article>

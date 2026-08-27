@@ -8,24 +8,40 @@ export default {
     extend: {
       colors: {
         cream: {
+          light: '#FCF9F3',
           DEFAULT: '#F8F1E7',
           dark: '#EFE2D0',
         },
-        beige: '#E5D0B5',
+        beige: {
+          light: '#EFE5D8',
+          DEFAULT: '#E5D0B5',
+          dark: '#D4BCA0',
+        },
         brown: {
           DEFAULT: '#5A351B',
+          dark: '#3C2210',
           light: '#8A6240',
+          warm: '#754728',
+          muted: '#9E785D',
         },
+        cinnamon: '#A05A2C',
+        caramel: '#C88E4B',
+        parchment: '#FAF5ED',
         ivory: '#FFFDF9',
+        sage: {
+          light: '#E9EFE3',
+          DEFAULT: '#6B7D58',
+          dark: '#4F5E40',
+        },
       },
       fontFamily: {
         serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
         sans: ['"DM Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        'display': ['clamp(2.5rem, 5vw, 4.5rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'heading': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.15', letterSpacing: '-0.01em' }],
-        'subheading': ['clamp(1.5rem, 3vw, 2rem)', { lineHeight: '1.3' }],
+        'display': ['clamp(2.6rem, 5.5vw, 4.8rem)', { lineHeight: '1.08', letterSpacing: '-0.02em' }],
+        'heading': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.14', letterSpacing: '-0.015em' }],
+        'subheading': ['clamp(1.4rem, 2.5vw, 2.1rem)', { lineHeight: '1.25' }],
       },
       spacing: {
         '18': '4.5rem',
@@ -37,14 +53,14 @@ export default {
         'xl': '1rem',
         '2xl': '1.5rem',
         '3xl': '2rem',
+        '4xl': '2.5rem',
       },
       boxShadow: {
-        'card': '0 4px 24px rgba(90, 53, 27, 0.08)',
-        'card-hover': '0 12px 40px rgba(90, 53, 27, 0.14)',
-        'soft': '0 2px 12px rgba(90, 53, 27, 0.06)',
-      },
-      backgroundImage: {
-        'grain': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E\")",
+        'card': '0 10px 30px -5px rgba(90, 53, 27, 0.08), 0 0 0 1px rgba(90, 53, 27, 0.04)',
+        'card-hover': '0 20px 40px -10px rgba(90, 53, 27, 0.16), 0 0 0 1px rgba(90, 53, 27, 0.06)',
+        'soft': '0 4px 20px -2px rgba(90, 53, 27, 0.05)',
+        'float': '0 25px 50px -12px rgba(90, 53, 27, 0.2)',
+        'inner-light': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.6)',
       },
     },
   },

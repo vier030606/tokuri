@@ -10,9 +10,9 @@ const PageHeader = ({
   breadcrumb = '',
 }) => {
   return (
-    <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 section-padding bg-cream border-b border-beige/40 overflow-hidden">
-      {/* Decorative botanical element */}
-      <div className="absolute top-12 right-12 w-48 h-48 opacity-[0.05] pointer-events-none">
+    <section className="relative pt-32 pb-16 md:pt-40 md:pb-22 section-padding bg-cream/70 border-b border-beige/60 overflow-hidden grain-overlay">
+      {/* Decorative Botanical & Stamp Flourish */}
+      <div className="absolute top-12 right-12 w-48 h-48 opacity-[0.07] pointer-events-none">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M100 10 C60 40, 20 80, 40 140 C50 170, 80 190, 100 190 C120 190, 150 170, 160 140 C180 80, 140 40, 100 10Z"
@@ -26,36 +26,37 @@ const PageHeader = ({
         </svg>
       </div>
 
-      <div className="container-narrow relative z-10 max-w-3xl">
+      <div className="container-narrow relative z-10 max-w-4xl">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
           className="text-left"
         >
-          {/* Breadcrumb */}
+          {/* Breadcrumb with Subtle Pill */}
           <motion.div
             variants={fadeUp}
-            className="flex items-center gap-1.5 font-sans text-xs text-brown-light/60 mb-4"
+            className="inline-flex items-center gap-1.5 font-sans text-xs text-brown-muted mb-5 bg-ivory/80 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-beige/60 shadow-xs"
           >
             <Link to="/" className="hover:text-brown transition-colors">
               Beranda
             </Link>
-            <ChevronRight size={12} className="text-brown-light/40" />
-            <span className="text-brown font-medium">{breadcrumb || title}</span>
+            <ChevronRight size={12} className="text-brown-muted/40" />
+            <span className="text-brown font-semibold">{breadcrumb || title}</span>
           </motion.div>
 
           {/* Eyebrow */}
           {eyebrow && (
-            <motion.span variants={fadeUp} className="eyebrow block mb-3">
-              {eyebrow}
-            </motion.span>
+            <motion.div variants={fadeUp} className="flex items-center gap-2 mb-3">
+              <span className="w-5 h-px bg-cinnamon" />
+              <span className="eyebrow">{eyebrow}</span>
+            </motion.div>
           )}
 
           {/* Heading */}
           <motion.h1
             variants={fadeUp}
-            className="font-serif text-heading font-bold text-brown mb-4 text-balance leading-tight"
+            className="font-serif text-heading font-bold text-brown mb-4 text-balance leading-[1.12]"
           >
             {title}
           </motion.h1>
@@ -64,7 +65,7 @@ const PageHeader = ({
           {description && (
             <motion.p
               variants={fadeUp}
-              className="font-sans text-base sm:text-lg text-brown-light/75 leading-relaxed max-w-2xl"
+              className="font-sans text-base sm:text-lg text-brown-muted leading-relaxed max-w-2xl"
             >
               {description}
             </motion.p>

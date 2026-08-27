@@ -1,92 +1,113 @@
 import { motion } from 'framer-motion';
-import { occasions } from '../data/products';
-import { fadeUp, fadeLeft, fadeRight, scaleIn, staggerContainer, viewportConfig } from '../utils/animations';
-
-// Assign animation directions based on position
-const getVariant = (index) => {
-  const variants = [fadeLeft, fadeRight, scaleIn, fadeLeft, fadeRight, scaleIn];
-  return variants[index % variants.length];
-};
-
-// Layout positions for editorial collage
-const positions = [
-  'col-span-2 row-span-2',    // Camilan — large
-  'col-span-1 row-span-1',    // Hampers
-  'col-span-1 row-span-1',    // Parcel
-  'col-span-1 row-span-1',    // Souvenir
-  'col-span-1 row-span-1',    // Oleh-oleh
-  'col-span-2 row-span-1',    // Reseller — wide
-];
+import { occasions, products } from '../data/products';
+import { fadeUp, staggerContainer, viewportConfig } from '../utils/animations';
+import { Link } from 'react-router-dom';
 
 const Occasions = () => {
   return (
-    <section className="section-padding section-spacing bg-cream grain-overlay">
+    <section className="section-padding section-spacing bg-ivory grain-overlay">
       <div className="container-narrow">
         {/* Header */}
         <motion.div
-          className="text-center mb-12 md:mb-16"
+          className="text-center max-w-2xl mx-auto mb-14 md:mb-18"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
         >
-          <motion.span variants={fadeUp} className="eyebrow block mb-4">
-            Berbagai Momen
-          </motion.span>
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-3">
+            <span className="w-8 h-px bg-beige-dark" />
+            <span className="eyebrow">Momen Bersama Tokuri</span>
+            <span className="w-8 h-px bg-beige-dark" />
+          </motion.div>
+
           <motion.h2
             variants={fadeUp}
             className="font-serif text-heading font-semibold text-brown text-balance"
           >
-            Untuk Setiap Momen.
+            Untuk Setiap{' '}
+            <span className="font-serif italic font-normal text-cinnamon">
+              Momen Berharga.
+            </span>
           </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            className="font-sans text-base text-brown-muted mt-4"
+          >
+            Dari santai minum teh di sore hari hingga bingkisan hampers perayaan mewah.
+          </motion.p>
         </motion.div>
 
-        {/* Collage Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5 auto-rows-[140px] sm:auto-rows-[180px] md:auto-rows-[200px]">
-          {occasions.map((occasion, index) => (
-            <motion.div
-              key={occasion.id}
-              className={`relative group rounded-xl sm:rounded-2xl overflow-hidden cursor-default ${positions[index] || 'col-span-1'}`}
-              variants={getVariant(index)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportConfig}
-            >
-              {/* Image */}
-              <img
-                src={occasion.image}
-                alt={occasion.label}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.nextElementSibling?.classList.remove('hidden');
-                }}
-              />
-              {/* Fallback placeholder */}
-              <div className="hidden absolute inset-0 bg-cream-dark flex items-center justify-center">
-                <div className="text-center p-4">
-                  <svg className="w-8 h-8 text-brown-light/20 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="2"/>
-                    <circle cx="8.5" cy="8.5" r="1.5"/>
-                    <path d="M21 15l-5-5L5 21"/>
-                  </svg>
-                  <span className="font-sans text-brown-light/30 text-xs">{occasion.image.split('/').pop()}</span>
+        {/* Artful Moodboard Grid */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+        >
+          {occasions.map((occ, idx) => {
+            const rotations = ['rotate-[-0.8deg]', 'rotate-[0.9deg]', 'rotate-[-0.6deg]', 'rotate-[0.8deg]', 'rotate-[-0.9deg]', 'rotate-[0.6deg]'];
+            const rot = rotations[idx % rotations.length];
+
+            return (
+              <motion.div
+                key={occ.id}
+                variants={fadeUp}
+                className={`group bg-cream/70 p-4 pb-6 rounded-3xl border border-brown/10 ring-1 ring-brown/5 shadow-soft hover:shadow-card transition-all duration-500 ${rot} hover:rotate-0 hover:-translate-y-1.5 flex flex-col justify-between`}
+              >
+                <div>
+                  {/* Polaroid Frame Image */}
+                  <div className="relative aspect-[16/11] rounded-2xl overflow-hidden bg-cream-dark mb-4 shadow-sm">
+                    <img
+                      src={occ.image}
+                      alt={occ.label}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brown/50 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+                    
+                    {/* Subtle index tag */}
+                    <div className="absolute top-3 left-3">
+                      <span className="font-serif text-xs font-bold text-brown bg-ivory/90 backdrop-blur-sm px-2.5 py-1 rounded-md shadow-sm">
+                        0{idx + 1}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Caption */}
+                  <div className="px-2">
+                    <h3 className="font-serif text-2xl font-bold text-brown mb-1.5 group-hover:text-cinnamon transition-colors">
+                      {occ.label}
+                    </h3>
+                    <p className="font-sans text-xs sm:text-sm text-brown-muted leading-relaxed mb-4">
+                      {occ.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-brown/60 via-brown/10 to-transparent
-                              group-hover:from-brown/70 transition-all duration-500" />
-
-              {/* Label */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                <span className="font-serif text-lg sm:text-xl font-semibold text-ivory drop-shadow-md">
-                  {occasion.label}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                {/* Recommended Tags */}
+                {occ.recommended && (
+                  <div className="px-2 pt-3 border-t border-beige/50 flex items-center justify-between">
+                    <span className="font-sans text-[10px] uppercase font-bold text-brown-muted tracking-wider">
+                      Varian Cocok:
+                    </span>
+                    <div className="flex gap-1">
+                      {occ.recommended.slice(0, 2).map((recId) => (
+                        <span
+                          key={recId}
+                          className="font-sans text-[10px] bg-ivory text-brown px-2 py-0.5 rounded-full border border-beige/60 capitalize"
+                        >
+                          {products.find((p) => p.id === recId)?.name.split(' ')[0] || recId}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

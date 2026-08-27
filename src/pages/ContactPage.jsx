@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle, MapPin, AtSign, Clock, Send, CheckCircle } from 'lucide-react';
+import { MessageCircle, MapPin, AtSign, Clock, Send, CheckCircle2, Truck } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
+import FloatingCartBar from '../components/FloatingCartBar';
 import { contact } from '../data/products';
 import { fadeUp, staggerContainer, viewportConfig } from '../utils/animations';
 
@@ -27,31 +28,31 @@ const InstagramIcon = ({ size = 20, className = '' }) => (
 const contactChannels = [
   {
     icon: MessageCircle,
-    label: 'WhatsApp',
+    label: 'WhatsApp Admin',
     value: contact.whatsapp.number,
-    desc: 'Layanan pemesanan & konsultasi cepat',
+    desc: 'Konsultasi cepat, cek stok fresh & pemesanan instan',
     url: contact.whatsapp.url,
     accent: true,
   },
   {
     icon: InstagramIcon,
-    label: 'Instagram',
+    label: 'Instagram Resmi',
     value: contact.instagram.handle,
-    desc: 'Update menu, foto, & testimoni pelanggan',
+    desc: 'Katalog visual, proses baking di dapur, & update promo',
     url: contact.instagram.url,
   },
   {
     icon: AtSign,
     label: 'LINE Official',
     value: contact.line.id,
-    desc: 'Info promo & broadcast berkala',
+    desc: 'Info diskon musiman & broadcast berkala',
     url: contact.line.url,
   },
   {
     icon: MapPin,
-    label: 'Lokasi Produksi',
+    label: 'Lokasi Dapur',
     value: 'Surabaya, Indonesia',
-    desc: 'Pengiriman ke seluruh kota di Indonesia',
+    desc: 'Melayani pengiriman seluruh kota di Indonesia',
     url: null,
   },
 ];
@@ -71,11 +72,11 @@ const ContactPage = () => {
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    const text = `Halo Tokuri, saya ingin berkonsultasi mengenai:
-- Kategori: ${inquiryType}
+    const text = `Halo Tokuri, saya ingin memesan / bertanya mengenai:
+- Kategori Kebutuhan: ${inquiryType}
 - Nama: ${formData.name || '-'}
 - WhatsApp: ${formData.phone || '-'}
-- Pesan: ${formData.message || '-'}`;
+- Detail Pesan: ${formData.message || '-'}`;
 
     const url = `https://wa.me/6281234567890?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
@@ -85,14 +86,14 @@ const ContactPage = () => {
     <div className="overflow-hidden">
       {/* 1. Page Header */}
       <PageHeader
-        eyebrow="Layanan Pelanggan"
+        eyebrow="Layanan Pelanggan & Pemesanan"
         title="Hubungi Tokuri"
-        description="Siap membantu pesanan kue kering Anda untuk konsumsi pribadi, hampers hari raya, parcel korporat, souvenir, maupun kemitraan reseller."
+        description="Siap membantu pesanan kue kering Anda untuk konsumsi keluarga, hampers hari raya, parcel korporat, souvenir, maupun kemitraan reseller."
         breadcrumb="Kontak"
       />
 
-      {/* 2. Contact Channels Grid */}
-      <section className="section-padding section-spacing bg-ivory">
+      {/* 2. Contact Channels Cards */}
+      <section className="section-padding section-spacing bg-ivory grain-overlay">
         <div className="container-narrow">
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
@@ -100,7 +101,7 @@ const ContactPage = () => {
             initial="hidden"
             animate="visible"
           >
-            {contactChannels.map((c) => {
+            {contactChannels.map((c, i) => {
               const Icon = c.icon;
               const Wrapper = c.url ? 'a' : 'div';
               const props = c.url
@@ -111,10 +112,10 @@ const ContactPage = () => {
                 <motion.div key={c.label} variants={fadeUp}>
                   <Wrapper
                     {...props}
-                    className={`block h-full p-8 rounded-3xl text-left transition-all duration-300 ${
+                    className={`block h-full p-8 rounded-3xl text-left transition-all duration-300 relative ${
                       c.accent
-                        ? 'bg-brown text-ivory shadow-card hover:bg-brown-light'
-                        : 'bg-cream/60 border border-beige/60 hover:bg-cream-dark hover:shadow-soft'
+                        ? 'bg-brown text-ivory shadow-card hover:bg-brown-dark hover:-translate-y-1'
+                        : 'bg-cream/60 border border-brown/10 ring-1 ring-brown/5 hover:bg-cream-dark hover:shadow-soft hover:-translate-y-1'
                     } ${c.url ? 'cursor-pointer' : 'cursor-default'}`}
                   >
                     <div
@@ -126,15 +127,15 @@ const ContactPage = () => {
                     </div>
 
                     <span
-                      className={`font-sans text-xs font-semibold uppercase tracking-wider block mb-1.5 ${
-                        c.accent ? 'text-ivory/60' : 'text-brown-light/60'
+                      className={`font-sans text-xs font-bold uppercase tracking-wider block mb-1.5 ${
+                        c.accent ? 'text-ivory/60' : 'text-brown-muted'
                       }`}
                     >
                       {c.label}
                     </span>
 
                     <h3
-                      className={`font-serif text-xl font-bold mb-2 ${
+                      className={`font-serif text-2xl font-bold mb-2 ${
                         c.accent ? 'text-ivory' : 'text-brown'
                       }`}
                     >
@@ -143,7 +144,7 @@ const ContactPage = () => {
 
                     <p
                       className={`font-sans text-xs leading-relaxed ${
-                        c.accent ? 'text-ivory/75' : 'text-brown-light/75'
+                        c.accent ? 'text-ivory/75' : 'text-brown-muted'
                       }`}
                     >
                       {c.desc}
@@ -156,60 +157,64 @@ const ContactPage = () => {
 
           {/* 3. Inquiry Form & Operational Details */}
           <div className="grid lg:grid-cols-12 gap-12 items-start">
-            {/* Left: Info Card */}
+            {/* Left: Operational Info Cards */}
             <div className="lg:col-span-5 space-y-6">
-              <div className="bg-cream/70 rounded-3xl p-8 border border-beige/60 shadow-soft">
+              <div className="paper-card">
                 <div className="flex items-center gap-3 mb-4 text-brown">
-                  <Clock size={20} />
-                  <h3 className="font-serif text-xl font-bold">Jam Operasional</h3>
+                  <div className="w-10 h-10 rounded-xl bg-cream-dark flex items-center justify-center">
+                    <Clock size={20} />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold">Jam Buka Dapur</h3>
                 </div>
-                <p className="font-sans text-sm text-brown-light/80 leading-relaxed mb-4">
+                <p className="font-sans text-sm text-brown-muted leading-relaxed mb-3">
                   {contact.hours}
                 </p>
-                <p className="font-sans text-xs text-brown-light/60">
-                  Pesanan di luar jam operasional tetap dapat dikirimkan melalui form atau WhatsApp dan akan kami respon pada hari kerja berikutnya.
+                <p className="font-sans text-xs text-brown-muted/70 leading-relaxed">
+                  Pesan yang masuk di luar jam operasional akan tetap tercatat dan segera dibalas oleh tim admin kami saat jam operasional berikutnya dimulai.
                 </p>
               </div>
 
-              <div className="bg-cream/70 rounded-3xl p-8 border border-beige/60 shadow-soft">
+              <div className="paper-card">
                 <div className="flex items-center gap-3 mb-4 text-brown">
-                  <MapPin size={20} />
-                  <h3 className="font-serif text-xl font-bold">Pengiriman & Ekspedisi</h3>
+                  <div className="w-10 h-10 rounded-xl bg-cream-dark flex items-center justify-center">
+                    <Truck size={20} />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold">Jangkauan Pengiriman</h3>
                 </div>
-                <div className="space-y-3 font-sans text-sm text-brown-light/80">
+                <div className="space-y-3 font-sans text-xs sm:text-sm text-brown-muted">
                   <div className="flex items-start gap-2">
-                    <CheckCircle size={16} className="text-brown mt-0.5 shrink-0" />
-                    <span><strong>Surabaya & Sekitarnya:</strong> Kurir Instant / Sameday / Ambil Langsung.</span>
+                    <CheckCircle2 size={16} className="text-sage mt-0.5 shrink-0" />
+                    <span><strong>Surabaya & Sekitarnya:</strong> Instant (Grab/Gojek), Sameday, atau ambil langsung di lokasi dapur kami.</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <CheckCircle size={16} className="text-brown mt-0.5 shrink-0" />
-                    <span><strong>Luar Kota / Pulau:</strong> JNE, J&T, SiCepat, Paxel dengan ekstra bubble wrap.</span>
+                    <CheckCircle2 size={16} className="text-sage mt-0.5 shrink-0" />
+                    <span><strong>Luar Kota & Seluruh Indonesia:</strong> Ekspedisi khusus makanan (Paxel, JNE YES, SiCepat) dengan proteksi kardus & bubble wrap tebal.</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right: Interactive Message Builder */}
+            {/* Right: Interactive WhatsApp Message Builder */}
             <div className="lg:col-span-7">
               <form
                 onSubmit={handleSendMessage}
-                className="bg-cream-dark/40 rounded-3xl p-8 sm:p-10 border border-beige/60 shadow-card space-y-6"
+                className="bg-cream/60 rounded-4xl p-8 sm:p-10 border border-brown/10 ring-1 ring-brown/5 shadow-card space-y-6"
               >
                 <div>
                   <h3 className="font-serif text-2xl font-bold text-brown mb-1">
-                    Kirim Pesan Langsung
+                    Kirim Pesan Cepat ke Tokuri
                   </h3>
-                  <p className="font-sans text-xs text-brown-light/75">
-                    Pilih tipe kebutuhan Anda untuk mendapatkan template pesan yang otomatis terhubung ke WhatsApp.
+                  <p className="font-sans text-xs text-brown-muted">
+                    Pilih jenis kebutuhan Anda di bawah untuk menghasilkan template pesan WhatsApp otomatis.
                   </p>
                 </div>
 
                 {/* Inquiry Type Selector */}
                 <div>
-                  <label className="block font-sans text-xs font-semibold text-brown uppercase tracking-wider mb-2.5">
-                    Jenis Kebutuhan
+                  <label className="block font-sans text-xs font-bold text-brown uppercase tracking-wider mb-2.5">
+                    Jenis Kebutuhan:
                   </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-2 gap-2.5">
                     {[
                       'Pesanan Pribadi / Camilan',
                       'Hampers / Parcel Hari Raya',
@@ -220,10 +225,10 @@ const ContactPage = () => {
                         key={type}
                         type="button"
                         onClick={() => setInquiryType(type)}
-                        className={`text-left p-3 rounded-xl border font-sans text-xs transition-all duration-200 ${
+                        className={`text-left p-3 rounded-2xl border font-sans text-xs transition-all duration-200 ${
                           inquiryType === type
                             ? 'bg-brown text-ivory border-brown font-semibold shadow-soft'
-                            : 'bg-ivory text-brown-light border-beige/50 hover:border-brown hover:text-brown'
+                            : 'bg-ivory text-brown-muted border-beige/60 hover:border-brown/40 hover:text-brown'
                         }`}
                       >
                         {type}
@@ -234,7 +239,7 @@ const ContactPage = () => {
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-sans text-xs font-semibold text-brown uppercase tracking-wider mb-2">
+                    <label className="block font-sans text-xs font-bold text-brown uppercase tracking-wider mb-2">
                       Nama Anda *
                     </label>
                     <input
@@ -243,12 +248,12 @@ const ContactPage = () => {
                       required
                       value={formData.name}
                       onChange={handleInputChange}
-                      placeholder="Nama lengkap"
-                      className="w-full px-4 py-3 rounded-xl bg-ivory border border-beige/60 text-sm font-sans text-brown placeholder:text-brown-light/40 focus:outline-none focus:border-brown"
+                      placeholder="Nama lengkap Anda"
+                      className="w-full px-4 py-3 rounded-xl bg-ivory border border-beige/80 text-sm font-sans text-brown placeholder:text-brown-muted/50 focus:outline-none focus:border-brown focus:ring-1 focus:ring-brown"
                     />
                   </div>
                   <div>
-                    <label className="block font-sans text-xs font-semibold text-brown uppercase tracking-wider mb-2">
+                    <label className="block font-sans text-xs font-bold text-brown uppercase tracking-wider mb-2">
                       Nomor WhatsApp *
                     </label>
                     <input
@@ -258,13 +263,13 @@ const ContactPage = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="0812xxxxxxxx"
-                      className="w-full px-4 py-3 rounded-xl bg-ivory border border-beige/60 text-sm font-sans text-brown placeholder:text-brown-light/40 focus:outline-none focus:border-brown"
+                      className="w-full px-4 py-3 rounded-xl bg-ivory border border-beige/80 text-sm font-sans text-brown placeholder:text-brown-muted/50 focus:outline-none focus:border-brown focus:ring-1 focus:ring-brown"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-sans text-xs font-semibold text-brown uppercase tracking-wider mb-2">
+                  <label className="block font-sans text-xs font-bold text-brown uppercase tracking-wider mb-2">
                     Detail Pesan / Pertanyaan
                   </label>
                   <textarea
@@ -272,8 +277,8 @@ const ContactPage = () => {
                     rows="3"
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Contoh: Saya ingin pesan 5 toples Nastar dan 3 toples Kastengel untuk dikirim ke Surabaya..."
-                    className="w-full px-4 py-3 rounded-xl bg-ivory border border-beige/60 text-sm font-sans text-brown placeholder:text-brown-light/40 focus:outline-none focus:border-brown resize-none"
+                    placeholder="Contoh: Saya mau pesan 3 toples Nastar dan 2 Kastengel untuk dikirim ke Surabaya Timur..."
+                    className="w-full px-4 py-3 rounded-xl bg-ivory border border-beige/80 text-sm font-sans text-brown placeholder:text-brown-muted/50 focus:outline-none focus:border-brown resize-none"
                   />
                 </div>
 
@@ -289,6 +294,8 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
+
+      <FloatingCartBar />
     </div>
   );
 };

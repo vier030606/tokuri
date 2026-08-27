@@ -15,50 +15,72 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
     font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
-    color: #5A351B;
+    color: #3C2210;
     background-color: #FFFDF9;
     overflow-x: hidden;
   }
 
   ::selection {
     background-color: #E5D0B5;
-    color: #5A351B;
+    color: #3C2210;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Cormorant Garamond', Georgia, serif;
+    font-feature-settings: "kern", "liga", "clig", "calt";
   }
 }
 
 @layer components {
+  /* Artisanal Button Styles */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 
+    @apply inline-flex items-center justify-center gap-2.5 
            bg-brown text-ivory px-7 py-3.5 rounded-full 
            font-sans font-medium text-sm tracking-wide
            transition-all duration-300 ease-out
-           hover:bg-brown-light hover:shadow-card
-           active:scale-[0.97];
+           hover:bg-brown-dark hover:shadow-card hover:-translate-y-0.5
+           active:translate-y-0 active:scale-[0.98]
+           border border-brown/20 shadow-soft;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 
-           border-2 border-brown text-brown px-7 py-3.5 rounded-full 
-           font-sans font-medium text-sm tracking-wide
+    @apply inline-flex items-center justify-center gap-2.5 
+           border border-brown/30 text-brown px-7 py-3.5 rounded-full 
+           font-sans font-medium text-sm tracking-wide bg-ivory/90 backdrop-blur-sm
            transition-all duration-300 ease-out
-           hover:bg-brown hover:text-ivory
-           active:scale-[0.97];
+           hover:bg-brown hover:text-ivory hover:border-brown hover:shadow-soft hover:-translate-y-0.5
+           active:translate-y-0 active:scale-[0.98];
   }
 
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2.5 
+           bg-cinnamon text-ivory px-7 py-3.5 rounded-full 
+           font-sans font-semibold text-sm tracking-wide
+           transition-all duration-300 ease-out
+           hover:bg-brown hover:shadow-card hover:-translate-y-0.5
+           active:translate-y-0 active:scale-[0.98]
+           shadow-soft;
+  }
+
+  .btn-pill-sm {
+    @apply inline-flex items-center justify-center gap-2
+           bg-cream-dark/80 hover:bg-beige text-brown px-4 py-2 rounded-full
+           font-sans font-medium text-xs tracking-wider uppercase
+           transition-all duration-200 border border-beige/60;
+  }
+
+  /* Spacing */
   .section-padding {
     @apply px-5 sm:px-8 md:px-12 lg:px-20 xl:px-28;
   }
 
   .section-spacing {
-    @apply py-20 md:py-28 lg:py-36;
+    @apply py-20 md:py-28 lg:py-32;
   }
 
   .container-narrow {
@@ -66,16 +88,36 @@
   }
 
   .eyebrow {
-    @apply font-sans text-xs sm:text-sm font-medium tracking-[0.2em] uppercase text-brown-light;
+    @apply font-sans text-xs font-semibold tracking-[0.25em] uppercase text-brown-muted;
   }
 
-  /* Decorative tape element */
-  .tape {
-    @apply absolute w-16 h-6 bg-beige/60 rounded-sm;
-    transform: rotate(-4deg);
+  /* Artisanal Paper Card Styling */
+  .paper-card {
+    @apply bg-ivory rounded-3xl p-6 sm:p-8 border border-brown/10 ring-1 ring-brown/5 shadow-card hover:shadow-card-hover transition-all duration-500;
   }
 
-  /* Subtle grain overlay */
+  /* Washi Tape Accent */
+  .washi-tape {
+    @apply absolute w-20 h-6 bg-beige/70 backdrop-blur-sm rounded-[1px] shadow-sm pointer-events-none;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(90, 53, 27, 0.04) 4px, rgba(90, 53, 27, 0.04) 8px);
+  }
+
+  /* Editorial Flourish / Divider */
+  .editorial-divider {
+    @apply relative flex items-center justify-center my-8 w-full;
+  }
+  .editorial-divider::before,
+  .editorial-divider::after {
+    content: '';
+    @apply flex-1 h-px bg-gradient-to-r from-transparent via-beige to-transparent;
+  }
+
+  /* Handcrafted Wax Seal Badge */
+  .wax-seal {
+    @apply relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-cream border-2 border-dashed border-brown/30 flex items-center justify-center text-center p-2 shadow-soft;
+  }
+
+  /* Subtle Texture Overlay */
   .grain-overlay {
     position: relative;
   }
@@ -83,15 +125,32 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 1;
   }
 
-  /* Image placeholder styling */
-  .img-placeholder {
-    @apply bg-cream-dark flex items-center justify-center text-brown-light/40 
-           font-serif text-lg italic overflow-hidden;
+  /* Drop Cap for Editorial Storytelling */
+  .drop-cap::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.8rem;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.6rem;
+    margin-top: 0.2rem;
+    color: #5A351B;
+    font-weight: 700;
+  }
+
+  /* Taste Dot Rating Indicator */
+  .taste-dot {
+    @apply w-2.5 h-2.5 rounded-full transition-all duration-300;
+  }
+  .taste-dot-active {
+    @apply bg-cinnamon;
+  }
+  .taste-dot-inactive {
+    @apply bg-beige/60;
   }
 }
 
@@ -101,15 +160,40 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom Artisan Range Slider for Reseller & Hampers */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #EFE2D0;
+  height: 8px;
+  border-radius: 9999px;
+  outline: none;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #5A351B;
+  border: 3px solid #FFFDF9;
+  box-shadow: 0 4px 10px rgba(90, 53, 27, 0.3);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* Custom Artisan Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F8F1E7;
+  background: #FAF5ED;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E5D0B5;
+  background: #D4BCA0;
   border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb:hover {
