@@ -4,9 +4,11 @@ import { fadeUp, staggerContainer, viewportConfig } from '../utils/animations';
 import { Link } from 'react-router-dom';
 
 const Occasions = () => {
+  const cardColors = ['bg-neo-yellow', 'bg-neo-blue', 'bg-neo-secondary'];
+
   return (
-    <section className="section-padding section-spacing bg-ivory grain-overlay">
-      <div className="container-narrow">
+    <section className="section-padding section-spacing bg-white border-b-4 border-black relative overflow-hidden">
+      <div className="container-narrow relative z-10">
         {/* Header */}
         <motion.div
           className="text-center max-w-2xl mx-auto mb-14 md:mb-18"
@@ -15,72 +17,67 @@ const Occasions = () => {
           whileInView="visible"
           viewport={viewportConfig}
         >
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-3">
-            <span className="w-8 h-px bg-beige-dark" />
-            <span className="eyebrow">Momen Bersama Tokuri</span>
-            <span className="w-8 h-px bg-beige-dark" />
+          <motion.div variants={fadeUp} className="inline-block mb-4 bg-black text-white px-4 py-1.5 border-2 border-black transform -rotate-1 shadow-[4px_4px_0px_0px_rgba(225,29,72,1)]">
+            <span className="font-sans font-bold text-sm tracking-widest uppercase">Momen Bersama Tokuri</span>
           </motion.div>
 
           <motion.h2
             variants={fadeUp}
-            className="font-serif text-heading font-semibold text-brown text-balance"
+            className="font-display text-5xl md:text-6xl font-black text-black text-balance uppercase tracking-tight leading-none mt-4"
           >
             Untuk Setiap{' '}
-            <span className="font-serif italic font-normal text-cinnamon">
-              Momen Berharga.
+            <span className="text-white bg-neo-primary inline-block px-3 border-4 border-black transform rotate-1 mt-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+              Momen.
             </span>
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="font-sans text-base text-brown-muted mt-4"
+            className="font-sans font-medium text-lg text-black mt-6 border-2 border-black p-3 bg-neo-bg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] max-w-lg mx-auto"
           >
             Dari santai minum teh di sore hari hingga bingkisan hampers perayaan mewah.
           </motion.p>
         </motion.div>
 
-        {/* Artful Moodboard Grid */}
+        {/* Bento/Brutal Grid */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
         >
           {occasions.map((occ, idx) => {
-            const rotations = ['rotate-[-0.8deg]', 'rotate-[0.9deg]', 'rotate-[-0.6deg]', 'rotate-[0.8deg]', 'rotate-[-0.9deg]', 'rotate-[0.6deg]'];
-            const rot = rotations[idx % rotations.length];
-
+            const bgColor = cardColors[idx % cardColors.length];
             return (
               <motion.div
                 key={occ.id}
                 variants={fadeUp}
-                className={`group bg-cream/70 p-4 pb-6 rounded-3xl border border-brown/10 ring-1 ring-brown/5 shadow-soft hover:shadow-card transition-all duration-500 ${rot} hover:rotate-0 hover:-translate-y-1.5 flex flex-col justify-between`}
+                className={`group neo-brutal-card ${bgColor} flex flex-col justify-between`}
               >
                 <div>
-                  {/* Polaroid Frame Image */}
-                  <div className="relative aspect-[16/11] rounded-2xl overflow-hidden bg-cream-dark mb-4 shadow-sm">
+                  {/* Image Block */}
+                  <div className="relative aspect-[4/3] border-b-4 border-black overflow-hidden bg-white">
                     <img
                       src={occ.image}
                       alt={occ.label}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale-[20%] contrast-125"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brown/50 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
                     
-                    {/* Subtle index tag */}
-                    <div className="absolute top-3 left-3">
-                      <span className="font-serif text-xs font-bold text-brown bg-ivory/90 backdrop-blur-sm px-2.5 py-1 rounded-md shadow-sm">
+                    {/* Index tag */}
+                    <div className="absolute top-0 left-0 bg-black text-white px-3 py-2 border-r-4 border-b-4 border-black">
+                      <span className="font-display text-lg font-black leading-none">
                         0{idx + 1}
                       </span>
                     </div>
                   </div>
 
                   {/* Caption */}
-                  <div className="px-2">
-                    <h3 className="font-serif text-2xl font-bold text-brown mb-1.5 group-hover:text-cinnamon transition-colors">
+                  <div className="p-5">
+                    <h3 className="font-display text-2xl md:text-3xl font-black text-black mb-3 uppercase leading-none group-hover:translate-x-1 transition-transform">
                       {occ.label}
                     </h3>
-                    <p className="font-sans text-xs sm:text-sm text-brown-muted leading-relaxed mb-4">
+                    <p className="font-sans font-medium text-sm text-black leading-relaxed">
                       {occ.desc}
                     </p>
                   </div>
@@ -88,19 +85,21 @@ const Occasions = () => {
 
                 {/* Recommended Tags */}
                 {occ.recommended && (
-                  <div className="px-2 pt-3 border-t border-beige/50 flex items-center justify-between">
-                    <span className="font-sans text-[10px] uppercase font-bold text-brown-muted tracking-wider">
-                      Varian Cocok:
-                    </span>
-                    <div className="flex gap-1">
-                      {occ.recommended.slice(0, 2).map((recId) => (
-                        <span
-                          key={recId}
-                          className="font-sans text-[10px] bg-ivory text-brown px-2 py-0.5 rounded-full border border-beige/60 capitalize"
-                        >
-                          {products.find((p) => p.id === recId)?.name.split(' ')[0] || recId}
-                        </span>
-                      ))}
+                  <div className="p-5 pt-0 mt-auto">
+                    <div className="border-t-4 border-black pt-4 flex flex-col gap-2">
+                      <span className="font-sans text-xs uppercase font-black text-black tracking-widest">
+                        Varian Cocok:
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {occ.recommended.slice(0, 2).map((recId) => (
+                          <span
+                            key={recId}
+                            className="font-sans font-bold text-[11px] uppercase tracking-wider text-black bg-white px-2 py-1 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                          >
+                            {products.find((p) => p.id === recId)?.name.split(' ')[0] || recId}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}

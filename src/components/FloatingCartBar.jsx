@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Gift, ArrowUp, ShoppingBag, X } from 'lucide-react';
+import { MessageCircle, ArrowUp, ShoppingBag, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { contact } from '../data/products';
 
@@ -33,7 +33,7 @@ const FloatingCartBar = () => {
           initial={{ opacity: 0, y: 30, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 30, scale: 0.9 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.15 }}
           className="fixed bottom-6 right-5 sm:right-8 z-40 flex flex-col items-end gap-3 pointer-events-auto"
         >
           {/* Helpful Chat Prompt Tooltip */}
@@ -42,33 +42,33 @@ const FloatingCartBar = () => {
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 10 }}
-              className="bg-ivory/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-card border border-brown/15 text-left max-w-[220px] relative hidden sm:block"
+              className="bg-neo-yellow border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] px-4 py-2.5 rounded-none text-left max-w-[220px] relative hidden sm:block"
             >
               <button
                 onClick={() => setIsChatTipOpen(false)}
-                className="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full bg-cream-dark text-brown-muted hover:text-brown flex items-center justify-center text-[10px]"
+                className="absolute -top-3 -left-3 w-6 h-6 rounded-none bg-white text-black hover:bg-black hover:text-white flex items-center justify-center border-2 border-black transition-colors"
                 aria-label="Tutup pesan"
               >
-                <X size={10} />
+                <X size={14} strokeWidth={3} />
               </button>
-              <span className="font-serif font-bold text-xs text-brown block">
+              <span className="font-display font-bold text-xs text-black block">
                 Butuh Rekomendasi?
               </span>
-              <span className="font-sans text-[11px] text-brown-muted block leading-tight mt-0.5">
+              <span className="font-sans text-[11px] text-black font-semibold block leading-tight mt-0.5">
                 Chat admin Tokuri via WhatsApp untuk cek stok fresh hari ini.
               </span>
             </motion.div>
           )}
 
           {/* Action Buttons Group */}
-          <div className="flex items-center gap-2.5 bg-ivory/90 backdrop-blur-md p-1.5 rounded-full shadow-card border border-brown/10 ring-1 ring-brown/5">
+          <div className="flex items-center gap-2.5 bg-white border-2 border-black p-1.5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             {location.pathname !== '/produk' && (
               <Link
                 to="/produk"
-                className="inline-flex items-center gap-1.5 bg-cream-dark hover:bg-beige text-brown font-sans font-medium text-xs px-3.5 py-2 rounded-full transition-colors"
+                className="inline-flex items-center gap-1.5 bg-neo-bg hover:bg-neo-secondary hover:text-black text-black font-sans font-bold text-xs px-3.5 py-2 border-2 border-black transition-colors"
                 title="Buka Katalog"
               >
-                <ShoppingBag size={14} />
+                <ShoppingBag size={14} strokeWidth={2.5} />
                 <span className="hidden sm:inline">Katalog</span>
               </Link>
             )}
@@ -77,19 +77,19 @@ const FloatingCartBar = () => {
               href={contact.whatsapp.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-sans font-semibold text-xs px-4 py-2.5 rounded-full shadow-sm transition-transform hover:scale-105"
+              className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-black text-white font-sans font-bold text-xs px-4 py-2.5 border-2 border-black transition-all active:translate-y-0.5 active:translate-x-0.5"
             >
-              <MessageCircle size={16} />
+              <MessageCircle size={16} strokeWidth={2.5} />
               <span>Chat WhatsApp</span>
             </a>
 
             <button
               onClick={scrollToTop}
-              className="w-8 h-8 rounded-full bg-cream hover:bg-cream-dark text-brown flex items-center justify-center transition-colors"
+              className="w-10 h-10 bg-neo-primary hover:bg-black text-white flex items-center justify-center border-2 border-black transition-colors active:translate-y-0.5 active:translate-x-0.5"
               aria-label="Kembali ke atas"
               title="Kembali ke atas"
             >
-              <ArrowUp size={15} />
+              <ArrowUp size={20} strokeWidth={3} />
             </button>
           </div>
         </motion.div>

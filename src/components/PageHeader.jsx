@@ -10,21 +10,10 @@ const PageHeader = ({
   breadcrumb = '',
 }) => {
   return (
-    <section className="relative pt-32 pb-16 md:pt-40 md:pb-22 section-padding bg-cream/70 border-b border-beige/60 overflow-hidden grain-overlay">
-      {/* Decorative Botanical & Stamp Flourish */}
-      <div className="absolute top-12 right-12 w-48 h-48 opacity-[0.07] pointer-events-none">
-        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M100 10 C60 40, 20 80, 40 140 C50 170, 80 190, 100 190 C120 190, 150 170, 160 140 C180 80, 140 40, 100 10Z"
-            stroke="#5A351B"
-            strokeWidth="1.5"
-          />
-          <path d="M100 10 L100 190" stroke="#5A351B" strokeWidth="0.8" />
-          <path d="M70 60 Q100 90, 130 60" stroke="#5A351B" strokeWidth="0.8" fill="none" />
-          <path d="M60 100 Q100 130, 140 100" stroke="#5A351B" strokeWidth="0.8" fill="none" />
-          <path d="M65 140 Q100 165, 135 140" stroke="#5A351B" strokeWidth="0.8" fill="none" />
-        </svg>
-      </div>
+    <section className="relative pt-32 pb-16 md:pt-40 md:pb-22 section-padding bg-neo-bg border-b-4 border-black overflow-hidden">
+      {/* Decorative Neo Brutal Elements */}
+      <div className="absolute top-20 right-10 md:right-20 w-32 h-32 bg-neo-yellow border-4 border-black transform rotate-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] pointer-events-none hidden sm:block z-0" />
+      <div className="absolute top-40 right-40 w-16 h-16 rounded-full bg-neo-primary border-4 border-black pointer-events-none hidden lg:block z-0" />
 
       <div className="container-narrow relative z-10 max-w-4xl">
         <motion.div
@@ -36,27 +25,28 @@ const PageHeader = ({
           {/* Breadcrumb with Subtle Pill */}
           <motion.div
             variants={fadeUp}
-            className="inline-flex items-center gap-1.5 font-sans text-xs text-brown-muted mb-5 bg-ivory/80 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-beige/60 shadow-xs"
+            className="inline-flex items-center gap-1.5 font-sans font-bold text-xs text-black mb-6 bg-white px-3.5 py-1.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] uppercase tracking-wider"
           >
-            <Link to="/" className="hover:text-brown transition-colors">
+            <Link to="/" className="hover:text-neo-primary transition-colors">
               Beranda
             </Link>
-            <ChevronRight size={12} className="text-brown-muted/40" />
-            <span className="text-brown font-semibold">{breadcrumb || title}</span>
+            <ChevronRight size={14} className="text-black" strokeWidth={3} />
+            <span className="text-black bg-neo-yellow px-2 py-0.5 border-2 border-black">{breadcrumb || title}</span>
           </motion.div>
 
           {/* Eyebrow */}
           {eyebrow && (
-            <motion.div variants={fadeUp} className="flex items-center gap-2 mb-3">
-              <span className="w-5 h-px bg-cinnamon" />
-              <span className="eyebrow">{eyebrow}</span>
+            <motion.div variants={fadeUp} className="flex items-center gap-2 mb-4">
+              <span className="inline-block bg-black text-white px-3 py-1 border-2 border-black transform -rotate-2">
+                <span className="font-sans font-black text-xs uppercase tracking-widest">{eyebrow}</span>
+              </span>
             </motion.div>
           )}
 
           {/* Heading */}
           <motion.h1
             variants={fadeUp}
-            className="font-serif text-heading font-bold text-brown mb-4 text-balance leading-[1.12]"
+            className="font-display text-5xl md:text-6xl lg:text-7xl font-black text-black mb-6 text-balance leading-none uppercase tracking-tight"
           >
             {title}
           </motion.h1>
@@ -65,7 +55,7 @@ const PageHeader = ({
           {description && (
             <motion.p
               variants={fadeUp}
-              className="font-sans text-base sm:text-lg text-brown-muted leading-relaxed max-w-2xl"
+              className="font-sans font-medium text-lg sm:text-xl text-black leading-relaxed max-w-2xl bg-white border-2 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
             >
               {description}
             </motion.p>

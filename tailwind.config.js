@@ -7,41 +7,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        cream: {
-          light: '#FCF9F3',
-          DEFAULT: '#F8F1E7',
-          dark: '#EFE2D0',
-        },
-        beige: {
-          light: '#EFE5D8',
-          DEFAULT: '#E5D0B5',
-          dark: '#D4BCA0',
-        },
-        brown: {
-          DEFAULT: '#5A351B',
-          dark: '#3C2210',
-          light: '#8A6240',
-          warm: '#754728',
-          muted: '#9E785D',
-        },
-        cinnamon: '#A05A2C',
-        caramel: '#C88E4B',
-        parchment: '#FAF5ED',
-        ivory: '#FFFDF9',
-        sage: {
-          light: '#E9EFE3',
-          DEFAULT: '#6B7D58',
-          dark: '#4F5E40',
-        },
+        neo: {
+          bg: '#FFF1F2',        // Very light rose background
+          primary: '#E11D48',   // Vibrant Rose
+          secondary: '#FB7185', // Soft Pink
+          cta: '#2563EB',       // Bright Blue
+          yellow: '#FBBF24',    // Playful Yellow
+          text: '#000000',      // Solid Black
+          border: '#000000',    // Solid Black
+          darkRose: '#881337'
+        }
       },
       fontFamily: {
-        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        sans: ['"DM Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', 'sans-serif'],
+        sans: ['"Outfit"', 'sans-serif'],
       },
       fontSize: {
-        'display': ['clamp(2.6rem, 5.5vw, 4.8rem)', { lineHeight: '1.08', letterSpacing: '-0.02em' }],
-        'heading': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.14', letterSpacing: '-0.015em' }],
-        'subheading': ['clamp(1.4rem, 2.5vw, 2.1rem)', { lineHeight: '1.25' }],
+        'display': ['clamp(2.6rem, 5.5vw, 4.8rem)', { lineHeight: '1.05', letterSpacing: '-0.03em' }],
+        'heading': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'subheading': ['clamp(1.4rem, 2.5vw, 2.1rem)', { lineHeight: '1.2' }],
       },
       spacing: {
         '18': '4.5rem',
@@ -50,17 +34,15 @@ export default {
         '30': '7.5rem',
       },
       borderRadius: {
-        'xl': '1rem',
-        '2xl': '1.5rem',
-        '3xl': '2rem',
-        '4xl': '2.5rem',
+        'xl': '0px',
+        '2xl': '0px',
+        '3xl': '0px',
+        '4xl': '0px',
       },
       boxShadow: {
-        'card': '0 10px 30px -5px rgba(90, 53, 27, 0.08), 0 0 0 1px rgba(90, 53, 27, 0.04)',
-        'card-hover': '0 20px 40px -10px rgba(90, 53, 27, 0.16), 0 0 0 1px rgba(90, 53, 27, 0.06)',
-        'soft': '0 4px 20px -2px rgba(90, 53, 27, 0.05)',
-        'float': '0 25px 50px -12px rgba(90, 53, 27, 0.2)',
-        'inner-light': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.6)',
+        'neo': '4px 4px 0px 0px rgba(0,0,0,1)',
+        'neo-lg': '8px 8px 0px 0px rgba(0,0,0,1)',
+        'neo-hover': '2px 2px 0px 0px rgba(0,0,0,1)',
       },
     },
   },

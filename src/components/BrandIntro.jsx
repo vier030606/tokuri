@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Heart, Sparkles, Gem, Wallet, UtensilsCrossed, CheckCircle2 } from 'lucide-react';
+import { Heart, Gem, Wallet, CheckCircle2 } from 'lucide-react';
 import { fadeUp, staggerContainer, viewportConfig } from '../utils/animations';
 
 const values = [
@@ -10,7 +10,7 @@ const values = [
     subtitle: 'Dibuat dengan sentuhan tangan dan perhatian di setiap adonan.',
     desc: 'Kami memanggang dalam jumlah terkontrol (small batches) untuk menjaga kualitas tekstur, kelembutan mentega, dan kesegaran rasa.',
     icon: Heart,
-    accent: 'bg-cream-dark',
+    color: 'bg-neo-yellow',
   },
   {
     number: '02',
@@ -19,7 +19,7 @@ const values = [
     subtitle: 'Bahan-bahan bermutu tinggi untuk cita rasa istimewa.',
     desc: 'Menggunakan perpaduan butter premium, keju tua pilihan, dan cokelat murni tanpa bahan pengawet sintesis yang merusak rasa.',
     icon: Gem,
-    accent: 'bg-beige/50',
+    color: 'bg-neo-blue',
   },
   {
     number: '03',
@@ -28,13 +28,13 @@ const values = [
     subtitle: 'Kualitas berkelas yang bersahabat untuk semua kantong.',
     desc: 'Kelezatan kue kering premium yang layak dinikmati setiap saat tanpa harus menunggu momen khusus atau merogoh kocek dalam.',
     icon: Wallet,
-    accent: 'bg-cream-dark',
+    color: 'bg-neo-accent',
   },
 ];
 
 const BrandIntro = () => {
   return (
-    <section id="tentang" className="section-padding section-spacing bg-cream/40 grain-overlay">
+    <section id="tentang" className="section-padding section-spacing bg-neo-bg border-b-4 border-black">
       <div className="container-narrow">
         {/* Section Header */}
         <motion.div
@@ -44,18 +44,16 @@ const BrandIntro = () => {
           whileInView="visible"
           viewport={viewportConfig}
         >
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-4">
-            <span className="w-8 h-px bg-beige-dark" />
-            <span className="eyebrow">Nilai & Filosofi Tokuri</span>
-            <span className="w-8 h-px bg-beige-dark" />
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-4 bg-white border-2 border-black px-4 py-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform rotate-1">
+            <span className="font-sans font-black text-xs uppercase tracking-widest text-black">Nilai & Filosofi Tokuri</span>
           </motion.div>
 
           <motion.h2
             variants={fadeUp}
-            className="font-serif text-heading font-semibold text-brown mb-6 text-balance"
+            className="font-display text-5xl md:text-6xl font-black text-black mb-6 text-balance uppercase tracking-tight leading-none"
           >
             Dibuat dari Rumah,{' '}
-            <span className="font-serif italic font-normal text-cinnamon">
+            <span className="text-white bg-black inline-block px-3 border-4 border-black transform -rotate-2 mt-2 shadow-[4px_4px_0px_0px_rgba(253,224,71,1)]">
               Dihadirkan
             </span>{' '}
             untuk Semua.
@@ -63,16 +61,15 @@ const BrandIntro = () => {
 
           <motion.p
             variants={fadeUp}
-            className="font-sans text-base sm:text-lg text-brown-muted leading-relaxed max-w-2xl mx-auto"
+            className="font-sans font-bold text-base sm:text-lg text-black leading-relaxed max-w-2xl mx-auto bg-white border-2 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
           >
-            Tokuri hadir sebagai toko kue kering yang menyatukan kehangatan resep keluarga dengan
-            standar cita rasa modern. Kami percaya kue yang istimewa lahir dari ketulusan, bukan sekadar kemasan mahal.
+            Tokuri hadir sebagai toko kue kering yang menyatukan kehangatan resep keluarga dengan standar cita rasa modern. Kami percaya kue yang istimewa lahir dari ketulusan, bukan sekadar kemasan mahal.
           </motion.p>
         </motion.div>
 
-        {/* 3 Values Cards with Tactile Craft Paper Aesthetic */}
+        {/* 3 Values Cards */}
         <motion.div
-          className="grid md:grid-cols-3 gap-8 lg:gap-10"
+          className="grid md:grid-cols-3 gap-6 lg:gap-8"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -84,45 +81,41 @@ const BrandIntro = () => {
               <motion.div
                 key={v.number}
                 variants={fadeUp}
-                className="paper-card relative group flex flex-col justify-between"
-                whileHover={{ y: -6 }}
+                className={`neo-brutal-card ${v.color} p-6 sm:p-7 relative flex flex-col justify-between group transition-transform hover:-translate-y-2`}
               >
-                {/* Washi tape on card */}
-                <div className="washi-tape -top-3 left-8 w-16 h-5 rotate-[-2deg]" />
-
                 <div>
                   {/* Top Badge & Number */}
-                  <div className="flex items-center justify-between mb-6 pb-4 border-b border-beige/60">
-                    <span className="font-sans text-[11px] font-semibold tracking-wider text-brown-muted uppercase bg-cream px-3 py-1 rounded-full border border-beige/40">
+                  <div className="flex items-center justify-between mb-6 pb-4 border-b-4 border-black">
+                    <span className="font-sans font-black text-[11px] tracking-widest text-black uppercase bg-white px-3 py-1 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                       {v.tag}
                     </span>
-                    <span className="font-serif text-3xl font-light text-beige-dark/60">
+                    <span className="font-display font-black text-3xl text-black">
                       {v.number}
                     </span>
                   </div>
 
                   {/* Icon */}
-                  <div className="w-12 h-12 rounded-2xl bg-cream-dark flex items-center justify-center mb-5 text-brown group-hover:bg-brown group-hover:text-ivory transition-colors duration-300 shadow-soft">
-                    <IconComponent size={22} strokeWidth={1.75} />
+                  <div className="w-16 h-16 bg-black border-2 border-black flex items-center justify-center mb-6 text-white shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] group-hover:bg-neo-primary transition-colors">
+                    <IconComponent size={32} strokeWidth={2.5} />
                   </div>
 
                   {/* Title & Subtitle */}
-                  <h3 className="font-serif text-2xl font-bold text-brown mb-2">
+                  <h3 className="font-display font-black text-3xl text-black mb-3 uppercase leading-none">
                     {v.title}
                   </h3>
-                  <p className="font-serif italic text-sm text-cinnamon mb-3">
-                    &ldquo;{v.subtitle}&rdquo;
+                  <p className="font-sans font-black text-sm text-black mb-4 uppercase bg-white border-2 border-black p-2 inline-block">
+                    {v.subtitle}
                   </p>
 
                   {/* Description */}
-                  <p className="font-sans text-sm text-brown-muted leading-relaxed">
+                  <p className="font-sans font-medium text-sm text-black leading-relaxed">
                     {v.desc}
                   </p>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-beige/40 flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-sage" />
-                  <span className="font-sans text-xs text-brown-muted">
+                <div className="mt-8 pt-4 border-t-4 border-black flex items-center gap-2">
+                  <CheckCircle2 size={18} strokeWidth={3} className="text-black" />
+                  <span className="font-sans font-black text-xs text-black uppercase">
                     Standar Mutu Tokuri
                   </span>
                 </div>

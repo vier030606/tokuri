@@ -13,7 +13,7 @@ const ProductSection = () => {
       : products.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="produk" className="section-padding section-spacing bg-cream">
+    <section id="produk" className="section-padding section-spacing bg-white border-b-4 border-black">
       <div className="container-narrow">
         {/* Section Header */}
         <motion.div
@@ -23,18 +23,20 @@ const ProductSection = () => {
           whileInView="visible"
           viewport={viewportConfig}
         >
-          <motion.span variants={fadeUp} className="eyebrow block mb-4">
-            Produk Kami
-          </motion.span>
+          <motion.div variants={fadeUp} className="inline-block mb-4 bg-neo-primary text-white px-3 py-1 border-2 border-black transform rotate-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+            <span className="font-sans font-black text-xs uppercase tracking-widest">
+              Produk Kami
+            </span>
+          </motion.div>
           <motion.h2
             variants={fadeUp}
-            className="font-serif text-heading font-semibold text-brown mb-4 text-balance"
+            className="font-display text-5xl md:text-6xl font-black text-black mb-4 text-balance uppercase tracking-tight"
           >
             Aneka Kue Kering
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="font-sans text-base text-brown-light/70 max-w-md mx-auto"
+            className="font-sans font-bold text-base text-black bg-neo-yellow border-2 border-black p-2 inline-block shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] max-w-md mx-auto transform -rotate-1"
           >
             Pilihan rasa untuk menemani berbagai momen.
           </motion.p>
@@ -42,7 +44,7 @@ const ProductSection = () => {
 
         {/* Category Filter */}
         <motion.div
-          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12"
+          className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportConfig}
@@ -52,10 +54,10 @@ const ProductSection = () => {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`font-sans text-xs sm:text-sm font-medium px-5 py-2 rounded-full transition-all duration-300 ${
+              className={`font-sans font-black text-sm sm:text-base uppercase px-6 py-2 border-2 border-black transition-all ${
                 activeCategory === cat
-                  ? 'bg-brown text-ivory shadow-soft'
-                  : 'bg-cream-dark/60 text-brown-light hover:bg-cream-dark hover:text-brown'
+                  ? 'bg-black text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -translate-y-1'
+                  : 'bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-neo-yellow hover:-translate-y-1'
               }`}
             >
               {cat}
@@ -63,9 +65,9 @@ const ProductSection = () => {
           ))}
         </motion.div>
 
-        {/* Product Grid — Editorial/Masonry Layout */}
+        {/* Product Grid — Neo-brutalism Layout */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
